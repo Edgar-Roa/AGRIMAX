@@ -9,3 +9,5 @@ def inicio(): #se crea una funcion
 
 if __name__ == '__main__': #se ejecuta la aplicacion
     app.run(debug=True) #se ejecuta la aplicacion en modo debug
+    # source ven/Scripts/activate   para activar el entorno virtual
+    # python app.py para ejecutar el archivo
