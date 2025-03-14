@@ -1,4 +1,5 @@
-from flask import Flask #me importa la libreria flask
+from flask import Flask, psycopg2 #me importa la libreria flask y psycopg2
+from flask import render_template #me importa la libreria render_template
 
 app = Flask(__name__)
 
