@@ -23,6 +23,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'agrimaaxx@gmail.com'
 app.config['MAIL_PASSWORD'] = 'ktyn rgqi emxw swjr'  
 
+<<<<<<< HEAD
 mail = Mail(app)
 
 def enviar_correo(destinatario, asunto, plantilla, datos):
@@ -1785,3 +1786,9 @@ def hortalizas():
 
 if __name__ == '__main__':
             app.run(debug=True)
+=======
+if __name__ == '__main__': #se ejecuta la aplicacion
+    app.run(debug=True) #se ejecuta la aplicacion en modo debug
+    # source ven/Scripts/activate   para activar el entorno virtual
+    # python app.py para ejecutar el archivo
+>>>>>>> 2091997a1156f8bead26f515bebb1b7b0e2ffb21
