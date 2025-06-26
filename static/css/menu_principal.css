@@ -1,0 +1,122 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d9d1f3;
+}
+
+/* Banner */
+.banner {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Contenedor de productos */
+.productos-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los productos se acomoden automáticamente */
+    justify-content: center; /* Centra los productos horizontalmente */
+    gap: 20px; /* Espaciado entre los productos */
+    padding: 30px;
+}
+
+/* Diseño de cada producto */
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    width: calc(33.33% - 20px); /* Ajusta los productos en tres columnas */
+    max-width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.producto-card:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen del producto */
+.producto-imagen {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Ajuste para pantallas medianas (tablets) */
+@media (max-width: 768px) {
+    .producto-card {
+        width: calc(50% - 20px); /* Dos columnas en tablets */
+    }
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 480px) {
+    .producto-card {
+        width: 100%; /* Productos en una sola columna */
+    }
+}
+
+.botones-producto {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaciado entre botones */
+    margin-top: 15px;
+}
+
+/* Botón Modificar */
+.btn-modificar {
+    background: #FFD700;
+    color: black;
+    font-weight: bold;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-modificar:hover {
+    background: #E6C200;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Botón Eliminar */
+.btn-eliminar {
+    background: #FF4444;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-eliminar:hover {
+    background: #B20000;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}

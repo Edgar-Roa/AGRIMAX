@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Pedido - AGRIMAX</title>
+</head>
+<body>
+    <h1>¡Gracias por tu compra!</h1>
+    <p>Tu pedido ha sido confirmado con el ID: <strong>{{ datos.pedido_id }}</strong></p>
+    <p>Total de la compra: <strong>${{ datos.total }}</strong></p>
+
+    <h2>Productos comprados:</h2>
+    <ul>
+        {% for producto in datos.productos %}
+        <li><strong>{{ producto[0] }}</strong> - Cantidad: {{ producto[1] }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>Te notificaremos cuando tu pedido esté listo para entrega.</p>
+    <br>
+    <p>Atentamente,</p>
+    <p><strong>Equipo AGRIMAX</strong></p>
+</body>
+</html>

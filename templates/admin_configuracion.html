@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración del Sistema</title>
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h1>Configuración del Sistema</h1>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label for="tema" class="form-label">Tema del sistema:</label>
+                <select class="form-select" id="tema" name="tema">
+                    <option value="Claro" {% if config[0] == 'Claro' %}selected{% endif %}>Claro</option>
+                    <option value="Oscuro" {% if config[0] == 'Oscuro' %}selected{% endif %}>Oscuro</option>
+                </select>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="acceso_publico" name="acceso_publico" {% if config[1] %}checked{% endif %}>
+                <label for="acceso_publico" class="form-check-label">Permitir acceso público</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+</body>
+</body>
+</html>

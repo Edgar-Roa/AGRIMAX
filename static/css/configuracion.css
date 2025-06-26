@@ -1,0 +1,175 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo general del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d9d1f3;
+}
+/* Contenedor principal */
+.config-container {
+    display: flex;
+    margin: 20px;
+    gap: 20px;
+}
+
+/* Menú lateral */
+.config-sidebar {
+    width: 250px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.config-menu {
+    list-style: none;
+}
+
+.config-menu li {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.config-menu li:hover {
+    background: #e0e0e0;
+}
+
+.config-menu li.active {
+    background: #8b4c12;
+    color: white;
+    border-radius: 5px;
+}
+
+.config-menu li i {
+    font-size: 16px;
+}
+
+/* Contenido de configuración */
+.config-content {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.config-section {
+    display: none;
+}
+
+.config-section.active {
+    display: block;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Tarjetas */
+.card {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Formularios */
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea.form-control {
+    resize: none;
+    height: 100px;
+}
+
+/* Botones */
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.btn-primary {
+    background: #8b4c12;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #a05a1a;
+}
+
+.btn-secondary {
+    background: #ccc;
+    color: black;
+}
+
+.btn-secondary:hover {
+    background: #bbb;
+}
+
+/* Feedback */
+.feedback {
+    margin-top: 10px;
+    padding: 10px;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .config-container {
+        flex-direction: column;
+    }
+
+    .config-sidebar {
+        width: 100%;
+    }
+}

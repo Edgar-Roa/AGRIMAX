@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRIMAX - Confirmación de Pedido</title>
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/boton_hamburguesaP.css">
+    <link rel="stylesheet" href="/static/css/pedido.css">
+    <link rel="stylesheet" href="/static/css/forma_pago.css">
+    <link rel="stylesheet" href="/static/css/confirmacion_pedidos.css">
+    <script src="/static/js/boton_hamburguesaP.js" defer></script>
+    <script src="/static/js/pedido.js" defer></script>
+    <script src="/static/js/forma_pago.js" defer></script>
+    <script src="/static/js/confirmacion_pedidos.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    .mensaje-flotante {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: none;
+}
+</style>
+<body>
+    {% if not session.get('usuario_id') %}
+    <script>
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+    {% endif %}
+<header class="header">
+    <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <div class="header-right">
+        <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
+    </div>
+
+    <div id="mensajeCompra" class="mensaje-flotante">
+        ¡Compra exitosa! Gracias por tu pedido se le ha enviado un correo de confirmación.
+    </div>
+</header>
+<div id="sidebar" class="sidebar">
+    <ul class="sidebar-menu">
+        <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+        <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
+        <li>
+            <button class="dropdown-btn">CATEGORÍAS <i class="fas fa-caret-down"></i></button>
+            <ul class="dropdown-container">
+                <li><a href="{{ url_for('verduras') }}">Verduras</a></li>
+                <li><a href="{{ url_for('frutas') }}">Frutas</a></li>
+                <li><a href="{{ url_for('legumbres') }}">Granos</a></li>
+                <li><a href="{{ url_for('hortalizas') }}">Hortalizas</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
+        <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+        <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+    </ul>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+    <section id="pedido-section" class="order-container">
+        <h1 class="order-title">PEDIDO</h1>
+        <h2 class="section-title">Detalles del Pedido</h2>
+        </div>
+        <div class="form-group">
+            <label for="quantity">¿Cuántos kilos o unidades necesita?</label>
+            <input type="number" id="quantity" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>¿Requiere un empaque especial?</label>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="package" value="granel" checked> Granel
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="package" value="bolsa"> Bolsa
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="package" value="caja"> Caja
+                </label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button type="button" class="btn btn-next" onclick="showSection('forma-pago-section')">SIGUIENTE</button>
+        </div>
+    </section>
+
+    <section id="forma-pago-section" class="payment-container" style="display: none;">
+        <h1 class="payment-title">PEDIDO</h1>
+        <h2 class="section-title">Tiempos y Entrega</h2>
+        <div class="form-group">
+            <label for="delivery-date">¿Para qué fecha y hora necesita la entrega o recogida?</label>
+            <input type="datetime-local" id="delivery-date" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="delivery-instructions">¿Tiene alguna instrucción especial para la entrega?</label>
+            <textarea id="delivery-instructions" class="form-control" rows="3"></textarea>
+        </div>
+        <h2 class="section-title">Forma de Pago</h2>
+        <div class="form-group">
+            <label>¿Qué método de pago prefiere?</label>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="payment-method" value="transferencia" checked> Transferencia bancaria
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="payment-method" value="tarjeta"> Tarjeta de crédito/débito
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>¿Necesita factura?</label>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="invoice" value="si"> SÍ
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="invoice" value="no" checked> NO
+                </label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button type="button" class="btn btn-previous" onclick="showSection('pedido-section')">ANTERIOR</button>
+            <button type="button" class="btn btn-next" onclick="showSection('confirmacion-section')">SIGUIENTE</button>
+        </div>
+    </section>
+
+    <section id="confirmacion-section" class="order-section" style="display: none;">
+        <h2>CONFIRMACIÓN DE PEDIDO</h2>
+        <div class="form-group">
+            <span>¿Cómo desea recibir la confirmación?</span>
+            <div class="radio-group">
+                <label><input type="radio" name="confirmation" value="notificacion"> Notificación</label>
+                <label><input type="radio" name="confirmation" value="correo"> Correo</label>
+                <label><input type="radio" name="confirmation" value="ambos"> Ambos</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <span>¿Algún comentario?</span>
+            <textarea class="form-textarea" placeholder="Escriba aquí..."></textarea>
+        </div>
+        <div class="button-group">
+            <button type="button" class="btn btn-previous" onclick="showSection('forma-pago-section')">ANTERIOR</button>
+            <button type="button" class="btn btn-finish" onclick="mostrarMensajeCompra()">
+    FINALIZAR COMPRA
+</button>
+        </div>
+    </section>
+<script>
+    function mostrarMensajeCompra() {
+        document.getElementById('mensajeCompra').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('mensajeCompra').style.display = 'none';
+            window.location.href = '/menu_principal';
+        }, 1000);
+    }
+</script>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+
+    </script>
+    <script>
+document.querySelector("form").addEventListener("submit", function(event) {
+    if (this.dataset.submitted) {
+        event.preventDefault();
+    }
+    this.dataset.submitted = true;
+});
+</script>
+
+</body>
+    <footer>
+        <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+    </footer>
+</html>

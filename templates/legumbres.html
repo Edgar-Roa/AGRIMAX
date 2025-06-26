@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRIMAX - Legumbres</title>
+    <link rel="stylesheet" href="/static/css/boton_hamburguesaP.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/frutas.css">
+    <script src="/static/js/frutas.js" defer></script>
+    <script src="/static/js/boton_hamburguesaP.js" defer></script>
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>
+    {% if not session.get('usuario_id') %}
+    <script>
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+    {% endif %}
+    <body>
+        <header class="header">
+            <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+            <button id="menuBtn" class="menu-btn">☰</button>
+            <div class="header-right">
+                <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </div>
+        </header>
+    
+        <div id="sidebar" class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+                <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
+                <li>
+                    <button class="dropdown-btn">CATEGORÍAS <i class="fas fa-caret-down"></i></button>
+                    <ul class="dropdown-container">
+                        <li><a href="{{ url_for('verduras') }}">Verduras</a></li>
+                        <li><a href="{{ url_for('frutas') }}">Frutas</a></li>
+                        <li><a href="{{ url_for('legumbres') }}">legrumbres</a></li>
+                        <li><a href="{{ url_for('hortalizas') }}">Hortalizas</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
+                <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+                <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+            </ul>
+        </div>
+    
+        <div id="overlay" class="overlay"></div>
+
+    <h1 class="main-title">NUESTROS PRODUCTOS DE LEGUMBRES</h1>
+
+    <div class="products-container">
+        {% for producto in productos %}
+        <div class="product-card" onclick="openModal('{{ producto.id }}')">
+            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+            <h3>{{ producto.nombre }}</h3>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% for producto in productos %}
+    <div class="product-modal" id="{{ producto.id }}-modal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+            </div>
+            <div class="modal-info">
+                <div class="company-name">{{ producto.proveedor }}</div>
+                <h2 class="product-title">{{ producto.nombre }}</h2>
+                <p class="product-description">{{ producto.descripcion }}</p>
+                <div class="pricing-info">
+                    <div class="price-item"><strong>Precio:</strong> ${{ producto.precio }}</div>
+                    <div class="price-item"><strong>Categoría:</strong> {{ producto.categoria }}</div>
+                </div>
+                <div class="modal-buttons">
+                   <button onclick="addToCart('{{ producto.id }}', '{{ producto.nombre }}', '{{ producto.precio }}', '{{ producto.imagen }}')" class="add-to-cart-btn">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+        <button class="close-modal" onclick="closeModal('{{ producto.id }}-modal')">×</button>
+    </div>
+    {% endfor %}
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id + '-modal').style.display = 'block';
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.getElementById('overlay').classList.remove('active');
+        }
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+
+    </script>
+</body>
+    <footer>
+        <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+    </footer>
+</html>

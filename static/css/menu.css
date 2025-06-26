@@ -1,0 +1,130 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f0ff;
+    color: #333;
+}
+
+/* Banner */
+.banner {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Contenedor de productos */
+/* Contenedor de productos */
+.productos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los productos */
+    gap: 20px; /* Espaciado uniforme */
+    align-items: stretch; /* Asegura que todas las tarjetas tengan la misma altura */
+}
+
+/* Tarjeta de producto */
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuye el contenido */
+    text-align: center;
+    width: 280px;
+    min-height: 400px; /* Altura uniforme */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen del producto */
+.producto-imagen {
+    width: 100%;
+    max-width: 200px;
+    height: 150px;
+    object-fit: contain; /* Evita recortes */
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Texto del producto */
+.producto-card h2, .producto-card p {
+    width: 100%; /* Asegura alineación y uniformidad */
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+/* Botón de agregar al carrito */
+.producto-card button {
+    width: 100%; /* Mantiene alineación */
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.producto-card button:hover {
+    background-color: #3e8e41;
+}
+
+
+/* Notificación */
+.notificacion {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    display: none;
+    font-size: 1rem;
+    animation: fadeOut 2s ease-in-out forwards;
+}
+
+/* Animación de la notificación */
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .producto-card {
+        width: 90%;
+    }
+
+    .banner {
+        height: 200px;
+    }
+
+    .notificacion {
+        font-size: 0.9rem;
+    }
+}

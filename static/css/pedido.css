@@ -1,0 +1,50 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#d9d1f3;
+}
+.order-container{
+    width:90%;max-width:800px;margin:30px auto;
+    background:#fff;padding:30px;border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1)
+}
+.order-title{
+    color:#8b4c12;text-align:center;
+    margin-bottom:30px;font-size:28px
+}
+.section-title{
+    color:#8b4c12;margin:20px 0 15px;
+    font-size:20px;border-bottom:2px solid #f1942b;
+    padding-bottom:5px
+}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;margin-bottom:8px;font-weight:bold}
+.form-control{
+    width:100%;padding:10px 15px;border:1px solid #ddd;
+    border-radius:5px;font-size:16px
+}
+.radio-group{display:flex;gap:20px;margin-top:10px;flex-wrap:wrap}
+.radio-option{display:flex;align-items:center}
+.radio-option input{margin-right:8px}
+textarea.form-control{min-height:100px;resize:vertical}
+.button-group{
+    display:flex;justify-content:space-between;
+    margin-top:40px
+}
+.btn{
+    padding:12px 30px;border-radius:5px;
+    cursor:pointer;font-weight:bold;
+    font-size:16px;border:none
+}
+.btn-previous{background:#8b4c12;color:#fff}
+.btn-next{background:#f1942b;color:#fff}
+@media (max-width:768px){
+    .nav{display:none}
+    .radio-group{flex-direction:column;gap:10px}
+    .button-group{flex-direction:column;gap:15px}
+    .btn{width:100%}
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="/static/css/boton_hamburguesaP.css">
+    <link rel="stylesheet" href="/static/css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>
+
+{% if not session.get('usuario_id') %}
+<script>
+    window.location.href = "{{ url_for('login') }}";
+</script>
+{% endif %}
+
+<header class="header">
+    <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <div class="header-right">
+        <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
+    </div>
+</header>
+
+<div id="sidebar" class="sidebar">
+    <ul class="sidebar-menu">
+        <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+        <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
+        <li>
+            <button class="dropdown-btn">CATEGORÍAS <i class="fas fa-caret-down"></i></button>
+            <ul class="dropdown-container">
+                <li><a href="{{ url_for('verduras') }}">Verduras</a></li>
+                <li><a href="{{ url_for('frutas') }}">Frutas</a></li>
+                <li><a href="{{ url_for('legumbres') }}">Legumbres</a></li>
+                <li><a href="{{ url_for('hortalizas') }}">Hortalizas</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+        <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+    </ul>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+<main>
+    <h1>Carrito de Compras</h1>
+
+    <div id="cart-container"></div>
+
+    <h2 id="total-price">Total: $0</h2>
+
+    <div class="button-group">
+        <button onclick="clearCart()" class="btn-cancelar">Vaciar Carrito</button>
+        <form method="POST" action="{{ url_for('confirmar_pedido') }}" onsubmit="sessionStorage.setItem('compraExitosa', true);">
+            <button type="submit" class="btn-comprar">Comprar</button>
+        </form>
+    </div>
+</main>
+
+<script src="/static/js/carrito.js"></script>
+<script src="/static/js/boton_hamburguesaP.js"></script>
+<script>
+function clearCart() {
+    localStorage.removeItem("cart");
+    document.getElementById("cart-container").innerHTML = "<p>Tu carrito está vacío.</p>";
+    document.getElementById("total-price").textContent = "Total: $0";
+}
+window.onload = function () {
+    let compraExitosa = sessionStorage.getItem("compraExitosa");
+    if (compraExitosa) {
+        clearCart();
+        sessionStorage.removeItem("compraExitosa");
+    }
+};
+
+    </script>
+
+<footer>
+    <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+
+</footer>
+</body>
+</html>

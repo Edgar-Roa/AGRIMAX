@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrimax - Nuevo Producto</title>
+    <link rel="stylesheet" href="/static/css/boton_hamburguesa.css">
+    <link rel="stylesheet" href="/static/css/nuevo.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <script src="/static/js/boton_hamburguesa.js"></script>
+</head>
+
+<body>
+     {% if not session.get('usuario_id') %}
+ <script>
+     window.location.href = "{{ url_for('login') }}";
+ </script>
+ {% endif %}
+
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
+            🔔
+        </button>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+            <li><a href="{{ url_for('menu') }}">MENU PRINCIPAL</a></li>
+            <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="form-container">
+        <h1>Sube tu Producto</h1>
+        <form method="POST" action="{{ url_for('nuevo') }}" enctype="multipart/form-data">
+            <h2>Información General del Producto</h2>
+            <label for="nombre">Nombre del Producto:</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea name="descripcion" id="descripcion" placeholder="Descripción (Características principales, sabor, textura, usos)"></textarea>
+
+            <label for="categoria">Categoría:</label>
+            <select name="categoria" id="categoria" required>
+                <option value="">Selecciona una categoría</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria[0] }}">{{ categoria[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="precio">Precio:</label>
+            <input type="number" name="precio" id="precio" step="0.01" placeholder="Precio unitario o por volumen" required>
+
+            <h2>Imágenes del Producto</h2>
+            <label for="imagen">Sube una Imagen:</label>
+            <input type="file" name="imagen" id="imagen" accept="image/*">
+
+            <h2>Detalles de Producción</h2>
+            <label for="fecha_cosecha">Fecha de Cosecha:</label>
+            <input type="date" name="fecha_cosecha" id="fecha_cosecha">
+
+            <label for="certificaciones">Certificaciones:</label>
+            <input type="text" name="certificaciones" id="certificaciones" placeholder="Orgánico, GAP, Comercio Justo, etc.">
+
+            <h2>Especificaciones del Producto</h2>
+            <label for="tamaño_peso">Tamaño y Peso:</label>
+            <input type="text" name="tamaño_peso" id="tamaño_peso" placeholder="Ejemplo: 200-250g por unidad">
+
+            <label for="color_apariencia">Color y Apariencia:</label>
+            <input type="text" name="color_apariencia" id="color_apariencia" placeholder="Color y apariencia">
+
+            <label for="calidad">Calidad o Clasificación:</label>
+            <input type="text" name="calidad" id="calidad" placeholder="Primera, segunda, premium">
+
+            <label for="empaque">Empaque Disponible:</label>
+            <input type="text" name="empaque" id="empaque" placeholder="Granel, caja de 10 kg, bolsa de 1 kg, etc.">
+
+            <button type="submit" class="btn-submit">Subir Producto</button>
+        </form>
+    </div>
+   
+</body>
+<script>
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

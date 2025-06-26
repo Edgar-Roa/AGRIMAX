@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrimax</title>
+    <link rel="stylesheet" href="/static/css/boton_hamburguesa.css">
+    <link rel="stylesheet" href="/static/css/redes.css">
+    <script src="/static/js/boton_hamburguesa.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('listas_productos') }}">PRODUCTOS</a></li>
+            <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+    <div class="social-section">
+        <h2>CONTACTANOS EN NUESTRAS REDES</h2>
+        <div class="social-item"><h3>Facebook</h3><p>AGRIMAX_OFICIAL</p></div>
+        <div class="social-item"><h3>Instagram</h3><p>AGRIMAX_OFICIAL</p></div>
+        <div class="social-item"><h3>Correo</h3><p>AGRIMAX@GMAIL.COM</p></div>
+        <div class="social-item"><h3>Teléfono</h3><p>0180090400</p></div>
+    </div>
+</body>
+</html>

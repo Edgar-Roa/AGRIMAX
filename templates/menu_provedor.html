@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrimax - Menú Proveedor</title>
+    <link rel="stylesheet" href="/static/css/boton_hamburguesa.css">
+    <link rel="stylesheet" href="/static/css/menu_principal.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <script src="/static/js/boton_hamburguesa.js"></script>
+</head>
+
+<body>
+ {% if not session.get('usuario_id') %}
+ <script>
+     window.location.href = "{{ url_for('login') }}";
+ </script>
+ {% endif %}
+
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
+            🔔
+        </button>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+            <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main>
+        <h1>Tus Productos</h1>
+        <div class="productos-container">
+            {% if productos %}
+                {% for producto in productos %}
+                    <div class="producto-card">
+                        <img src="{{ producto['imagen'] }}" alt="{{ producto['nombre'] }}" class="producto-imagen">
+                        <h2>{{ producto['nombre'] }}</h2>
+                        <p><strong>Descripción:</strong> {{ producto['descripcion'] }}</p>
+                        <p><strong>Precio:</strong> ${{ producto['precio'] }}</p>
+                        <p><strong>Categoría:</strong> {{ producto['categoria'] }}</p>
+                        <p><strong>Fecha de Publicación:</strong> {{ producto['fecha_creacion'] }}</p>
+
+                        <div class="botones-producto">
+                            <button onclick="location.href='{{ url_for('modificar_producto_individual', producto_id=producto['id']) }}'" 
+                                    class="btn-modificar">Modificar Producto</button>
+
+                            <form method="POST" action="{{ url_for('eliminar_producto', producto_id=producto['id']) }}" 
+                                  onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                <button type="submit" class="btn-eliminar">Eliminar Producto</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No has subido ningún producto aún. Haz clic en <a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a> para agregar uno.</p>
+
+            {% endif %}
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menuContent");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    </script>
+</body>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+</body>
+</html>

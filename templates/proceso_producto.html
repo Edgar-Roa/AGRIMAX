@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalle del Proceso del Producto">
+    <title>Proceso del Producto</title>
+    <link rel="stylesheet" href="/static/css/proceso_producto.css">
+    <link rel="stylesheet" href="/static/css/boton_hamburguesaP.css">
+    <script src="/static/js/boton_hamburguesaP.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+     {% if not session.get('usuario_id') %}
+     <script>
+         window.location.href = "{{ url_for('login') }}";
+     </script>
+     {% endif %}
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div class="header-right">
+            <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
+            <li>
+                <button class="dropdown-btn">CATEGORÍAS <i class="fas fa-caret-down"></i></button>
+                <ul class="dropdown-container">
+                    <li><a href="{{ url_for('verduras') }}">Verduras</a></li>
+                    <li><a href="{{ url_for('frutas') }}">Frutas</a></li>
+                    <li><a href="{{ url_for('legumbres') }}">Granos</a></li>
+                    <li><a href="{{ url_for('hortalizas') }}">Hortalizas</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main>
+    <div class="product-details">
+        <img src="{{ url_for('static', filename=producto[5].replace('static/', '')) if producto[5] else url_for('static', filename='imagenes/default-product.jpg') }}" 
+             alt="Imagen del Producto" 
+             class="product-image">
+        <h2>{{ producto[0] }}</h2>
+        <p><strong>Descripción:</strong> {{ producto[1] }}</p>
+        <p><strong>Precio:</strong> ${{ producto[2] }}</p>
+        <p><strong>Categoría:</strong> {{ producto[3] }}</p>
+        <p><strong>Proveedor:</strong> {{ producto[4] }}</p>
+        <p><strong>Estado del Proceso:</strong> {{ producto[6] }}</p>
+    </div>
+</main>
+<script>
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+    <footer>
+        <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+    </footer>
+</body>
+
+</html>

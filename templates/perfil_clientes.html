@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AGRIMAX - Plataforma para productos agrícolas.">
+    <title>Perfil del Cliente - AGRIMAX</title>
+    <link rel="stylesheet" href="/static/css/perfil_cliente.css">
+    <link rel="stylesheet" href="/static/css/boton_hamburguesaP.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+
+    <script src="/static/js/perfil_cliente.js" defer></script>
+    <script src="/static/js/boton_hamburguesaP.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    {% if not session.get('usuario_id') %}
+    <script>
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+    {% endif %}
+
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div class="header-right">
+            <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
+            <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="banner">
+        <img src="/static/imagenes/portada.jpg" alt="Portada" class="banner-image">
+        <div class="profile">
+            <div class="profile-info">
+                <img src="{{ url_for('static', filename=perfil['foto'].replace('static/', '')) if perfil['foto'] else url_for('static', filename='imagenes/default-profile.jpg') }}" 
+                    alt="Foto de Perfil"
+                    class="profile-image"
+                    onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-profile.jpg') }}'">
+                <h2>{{ perfil['nombre'] }}</h2>
+                <p><strong>Correo:</strong> {{ perfil['correo'] }}</p>
+                <p><strong>Tipo de Usuario:</strong> {{ perfil['tipo'] }}</p>
+                <p><strong>Biografía:</strong> {{ perfil['biografia'] }}</p>
+            </div>
+            <div class="buttons">
+                <button onclick="location.href='{{ url_for('configuracion') }}'">EDITAR PERFIL</button>
+            </div>
+        </div>
+    </div>
+
+<h2>Historial de Compras</h2>
+{% if compras %}
+    <table>
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Producto</th>
+                <th>Proveedor</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compra in compras %}
+                <tr>
+                    <td>
+                        <img src="{{ url_for('static', filename=compra['ruta_imagen'].replace('static/', '')) if compra['ruta_imagen'] else url_for('static', filename='imagenes/default-product.jpg') }}"
+                             alt="Imagen del Producto"
+                             class="product-image"
+                             onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-product.jpg') }}'">
+                    </td>
+                    <td>{{ compra['producto'] }}</td>
+                    <td>{{ compra['proveedor'] }}</td>
+                    <td>{{ compra['cantidad'] }}</td>
+                    <td>${{ compra['precio_unitario'] }}</td>
+                    <td>${{ compra['subtotal'] }}</td>
+                    <td>{{ compra['fecha'] }}</td>>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No has realizado compras aún.</p>
+{% endif %}
+
+</body>
+<script>
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+
+<footer>
+    <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+</footer>
+</html>

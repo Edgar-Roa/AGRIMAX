@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Notificaciones de AGRIMAX">
+    <title>Notificaciones</title>
+    <link rel="stylesheet" href="/static/css/notificaciones.css">
+    <link rel="stylesheet" href="/static/css/boton_hamburguesa.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <script src="/static/js/boton_hamburguesa.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    {% if not session.get('usuario_id') %}
+    <script>
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+    {% endif %}
+
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
+            🔔
+        </button>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+            <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main>
+        <h1>Notificaciones</h1>
+        {% if notificaciones %}
+        <ul class="notificaciones-lista">
+            {% for notificacion in notificaciones %}
+            <li class="notificacion-item">
+                <img src="{{ url_for('static', filename=notificacion['imagen'].replace('static/', '') if notificacion['imagen'] else 'imagenes/default-product.jpg') }}" 
+                     alt="Imagen del producto" class="producto-imagen">
+                <div class="notificacion-contenido">
+                    <h2>{{ notificacion['producto'] }}</h2>
+                    <p><strong>Cliente:</strong> {{ notificacion['cliente'] }}</p>
+                    <p><strong>Mensaje:</strong> {{ notificacion['mensaje'] }}</p>
+                    <p><strong>Fecha:</strong> {{ notificacion['fecha'] }}</p>
+                    <p><strong>Estado:</strong> {{ 'Leído' if notificacion['leido'] else 'No leído' }}</p>
+
+                    {% if notificacion['leido'] == False %}
+                    <form action="{{ url_for('marcar_leido', notificacion_id=notificacion['id']) }}" method="POST" autocomplete="off">
+                        <button type="submit" class="marcar-leido-btn">Marcar como leído</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No tienes notificaciones pendientes.</p>
+        {% endif %}
+    </main>
+
+    <script>
+        if (performance.navigation.type === 2) { 
+            window.location.reload(); 
+        }
+    </script>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+</body>
+</html>

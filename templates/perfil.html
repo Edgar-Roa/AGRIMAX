@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AGRIMAX - Plataforma para productos agrícolas">
+    <title>Perfil de Usuario - AGRIMAX</title>
+    <link rel="stylesheet" href="/static/css/perfil.css">
+    <link rel="stylesheet" href="/static/css/boton_hamburguesa.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <script src="/static/js/perfil.js" defer></script>
+    <script src="/static/js/boton_hamburguesa.js" defer></script>
+</head>
+
+<body>
+     {% if not session.get('usuario_id') %}
+     <script>
+         window.location.href = "{{ url_for('login') }}";
+     </script>
+     {% endif %}
+     <header class="header">
+    <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
+        🔔
+    </button>
+</header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('menu') }}">MENU PRINCIPAL</a></li>
+            <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas_agri') }}">ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+    <div class="banner">
+        <img src="/static/imagenes/portada.jpg" alt="Portada de perfil" class="banner-image">
+        <div class="profile">
+            <div class="profile-info">
+                 <img src="{{ url_for('static', filename=perfil['foto'].replace('static/', '')) if perfil['foto'] else url_for('static', filename='imagenes/default-profile.jpg') }}" 
+                    alt="Foto de Perfil"
+                    class="profile-image"
+                    onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-profile.jpg') }}'">
+            </div>
+            <div class="buttons">
+                <button onclick="location.href='{{ url_for('configuracion') }}'">EDITAR PERFIL</button>
+            </div>
+        </div>
+    </div>
+<h2>{{ perfil[0] }}</h2>
+                <p><strong>Correo:</strong> {{ perfil[1] }}</p>
+                <p><strong>Tipo de Usuario:</strong> {{ perfil[2] }}</p>
+                <p><strong>Biografía:</strong> {{ perfil[4] if perfil[4] else 'No hay biografía disponible' }}</p>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+</body>
+<script>
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Agrimax</title>
+    <link rel="stylesheet" href="/static/css/registro.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Registro de Usuario</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/registro">
+            <label>Nombre completo:</label>
+            <input type="text" name="nombre" placeholder="Escribe tu nombre completo" required>
+
+            <label>Edad:</label>
+            <input type="number" name="edad" placeholder="Edad" required>
+
+            <label>Fecha de nacimiento:</label>
+            <input type="date" name="fecha_nacimiento" required>
+
+            <label>Correo:</label>
+            <input type="email" name="correo" placeholder="Correo electrónico" required>
+
+            <label>Contraseña:</label>
+            <input type="password" name="contraseña" placeholder="Contraseña" required>
+
+            <label>Número telefónico:</label>
+            <input type="text" name="telefono" placeholder="Teléfono" required pattern="\d{10}" title="Debe contener 10 dígitos">
+
+            <div class="radio-group">
+                <label><input type="radio" name="tipo" value="Cliente" checked> Cliente</label>
+                <label><input type="radio" name="tipo" value="Proveedor"> Proveedor</label>
+            </div>
+            <button type="button" onclick="location.href='/'">Cancelar</button>
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+</body>
+
+</html>

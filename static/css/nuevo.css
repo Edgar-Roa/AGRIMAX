@@ -1,0 +1,44 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('/static/imagenes/ima1.jpg') no-repeat center center/cover;
+    background-attachment: fixed; /* Esto mantiene la imagen fija */
+    color: white;
+}
+
+
+/* Css formulario */
+.form-container {
+    background: rgba(139, 76, 18, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-container button {
+    background: #f1942b;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}

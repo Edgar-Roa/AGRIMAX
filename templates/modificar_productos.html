@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modificar productos publicados en AGRIMAX.">
+    <title>Modificar Productos - AGRIMAX</title>
+    <link rel="stylesheet" href="/static/css/boton_hamburguesa.css?{{ timestamp }}">
+    <link rel="stylesheet" href="/static/css/modificar_productos.css?{{ timestamp }}">
+    <link rel="stylesheet" href="/static/css/footer.css?{{ timestamp }}">
+    <script src="/static/js/boton_hamburguesa.js?{{ timestamp }}" defer></script>
+</head>
+<body>
+     {% if not session.get('usuario_id') %}
+     <script>
+         window.location.href = "{{ url_for('login') }}";
+     </script>
+     {% endif %}
+    <header class="header">
+        <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
+            🔔
+        </button>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+            <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+        </ul>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main>
+        <h1>Modificar Producto</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form id="edit-form" method="POST" action="{{ url_for('modificar_producto_individual', producto_id=producto['id']) }}" enctype="multipart/form-data">
+            <input type="hidden" name="producto_id" value="{{ producto['id'] }}">
+
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" value="{{ producto['nombre'] }}" required>
+
+            <label for="descripcion">Descripción</label>
+            <textarea name="descripcion" id="descripcion">{{ producto['descripcion'] }}</textarea>
+
+            <label for="precio">Precio</label>
+            <input type="number" name="precio" id="precio" value="{{ producto['precio'] }}" step="0.01" required>
+
+            <label for="categoria_id">Categoría</label>
+            <select name="categoria_id" id="categoria_id" required>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria[0] }}"{% if categoria[0] == producto['categoria_id'] %} selected {% endif %}>
+                        {{ categoria[1] }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label>Imagen actual:</label><br>
+            <img id="preview" src="{{ url_for('static', filename=producto['foto']) }}?v={{ producto['id'] }}" 
+                alt="Imagen actual"
+                style="max-width: 200px; max-height: 200px; margin-bottom: 1em;"
+                onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-product.jpg') }}'"><br>
+
+            <label for="imagen">Cambiar imagen</label>
+            <input type="file" name="imagen" id="imagen" accept="image/*">
+<br><br>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('eliminar_producto', producto_id=producto['id']) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.');">
+            <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+        </form>
+
+        <br>
+        <a href="{{ url_for('menu') }}" class="volver-menu">Volver al menú</a>
+    </main>
+
+    <footer>
+        <p>© 2025 AGRIMAX. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('imagen').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+
+            if (file && preview) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+    </script>
+</body>
+</html>

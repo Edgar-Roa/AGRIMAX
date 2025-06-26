@@ -1,0 +1,66 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #d9d1f3;
+}
+
+.stats-section {
+    max-width: 1000px;
+    margin: 40px auto; 
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;  /* Centra las gráficas horizontalmente */
+    align-items: center;  /* Centra las gráficas verticalmente */
+    gap: 30px;  /* Espacio entre las gráficas */
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;  /* Cambié esto para que las gráficas se distribuyan y sigan centradas */
+}
+
+.chart-container {
+    width: 200px;  /* Ajusté el tamaño del contenedor */
+    text-align: center;
+}
+
+.chart {
+    width: 150px;  /* Ajusté el tamaño del gráfico */
+    height: 150px;  /* Ajusté el tamaño del gráfico */
+    border-radius: 50%;
+    background: conic-gradient(#e0e0e0 0%, transparent 0%);
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.chart::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: white;
+}
+
+.chart-value {
+    position: relative;
+    font-size: 24px;
+    color: #8b4c12;
+    font-weight: bold;
+}

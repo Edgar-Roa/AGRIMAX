@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRIMAX - Inicio de Sesión</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-content">
+                <div class="logo-arc"></div>
+                <div class="logo-leaf"></div>
+                <div class="logo-field">
+                    <div class="logo-field-line1"></div>
+                    <div class="logo-field-line2"></div>
+                </div>
+            </div>
+        </div>
+
+        <h1>Bienvenido</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+<br><br>
+        <form method="POST" action="/login">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+<br><br>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña" required>
+<br><br>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+<br>
+        <p class="register">¿No tienes cuenta? <a href="/registro">Regístrate</a></p>
+    </div>
+</body>
+
+</html>

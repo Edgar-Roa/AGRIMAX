@@ -1,0 +1,44 @@
+.process-btn {
+    background-color: #e08a25;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.process-btn:hover {
+    background-color: #e08a25;
+}
+
+/* filepath: c:\Users\edgar\OneDrive\Escritorio\AGRIIMAX\static\css\proceso_producto.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-details {
+    display: inline-block;
+    text-align: left;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

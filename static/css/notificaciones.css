@@ -1,0 +1,144 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Contenedor de Notificaciones */
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
+
+/* Lista de notificaciones */
+.notificaciones-lista {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre elementos */
+}
+
+/* Notificación */
+.notificacion-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+.notificacion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Imagen del producto */
+.producto-imagen {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+    flex-shrink: 0; /* Evita que la imagen se redimensione */
+}
+
+/* Contenedor de contenido de la notificación */
+.notificacion-contenido {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+.notificacion-contenido p {
+    margin-bottom: 12px;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Estados de notificación */
+.estado-pendiente {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.estado-en-proceso {
+    color: #3498db;
+    font-weight: bold;
+}
+
+.estado-completado {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+/* Formulario de actualización */
+form {
+    margin-top: 15px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #e08a25;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d67a1e;
+}
+.marcar-leido-btn {
+    background-color: #d67a1e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.marcar-leido-btn:hover {
+    background-color: #d67a1e;
+}
+/* Responsividad */
+@media screen and (max-width: 600px) {
+    .notificacion-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .producto-imagen {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    .notificacion-contenido p {
+        text-align: center;
+    }
+}

@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d9d1f3;
+}
+
+/*css del formulario*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('/static/imagenes/imagen\ 2.jpg'); /* Reemplaza con la URL de tu imagen */
+    background-size: cover;
+    background-position: center;
+}
+
+.form-container {
+    background: rgba(139, 76, 18, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+    margin: 100px auto;
+    color: white;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 15px;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background: #fcfbfa;
+    color: white;
+}
+
+.form-container button {
+    background: #f1942b;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}

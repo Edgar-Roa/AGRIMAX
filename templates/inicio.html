@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrimax</title>
+    <link rel="stylesheet" href="/static/css/inicio.css">
+    <script src="/static/js/inicio.js" defer></script>
+</head>
+
+<body>
+    <header class="agrimax-header">
+        <div class="agrimax-logo">AGRIMAX</div>
+        <div class="header-right">
+            <a href="{{ url_for('login') }}">iniciar sesión</a>
+            <a href="{{ url_for('registro') }}">Registro</a>
+        </div>
+    </header>
+
+    <div class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="/static/imagenes/carrusel.jpg" alt="Arroz">
+                    <div class="slide-caption">Productos agrícolas 100% orgánicos y naturales</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="/static/imagenes/ima1.jpg" alt="Cultivo">
+                    <div class="slide-caption">Técnicas de cultivo innovadoras para mayor rendimiento</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="/static/imagenes/portada.jpg" alt="Motocicleta">
+                    <div class="slide-caption">Eficiente con nuestros frutas y verduras </div>
+                </div>
+            </div>
+            
+            <button class="carousel-btn prev">&#10094;</button>
+            <button class="carousel-btn next">&#10095;</button>
+            
+            <div class="carousel-nav">
+                <div class="carousel-indicator active"></div>
+                <div class="carousel-indicator"></div>
+                <div class="carousel-indicator"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="productos-container">
+        <div class="producto">
+            <img src="/static/imagenes/jitomates.jpg" alt="Producto 1">
+            <h3>JITOMATES</h3>
+            <p>JITOMATES EN MUY BUEN PRECIO.</p>
+        </div>
+        <div class="producto">
+            <img src="/static/imagenes/papa.jpg" alt="Producto 2">
+            <h3>PAPAS</h3>
+            <p>PAPAS EN MUY BUEN PRECIO.</p>
+        </div>
+        <div class="producto">
+            <img src="/static/imagenes/pimientos.webp" alt="Producto 3">
+            <h3>PIMIENTOS</h3>
+            <p>PIMIENTOS EN BUEN PRECIO.</p>
+        </div>
+    </div>
+</body>
+</html>
