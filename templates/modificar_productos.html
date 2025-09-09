@@ -22,31 +22,18 @@
     <header class="header">
         <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
         <button id="menuBtn" class="menu-btn">☰</button>
-<<<<<<< HEAD
-        <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
-            🔔
-=======
         <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones.notificaciones') }}'">
-            
->>>>>>> 6d83164 (mejoras agrimax)
+            🔔
         </button>
     </header>
 
     <div id="sidebar" class="sidebar">
         <ul class="sidebar-menu">
-<<<<<<< HEAD
-            <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
-            <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
-            <li><a href="{{ url_for('graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
-            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
-            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
-=======
             <li><a href="{{ url_for('usuarios.perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
             <li><a href="{{ url_for('nuevo_producto.nuevo') }}">SUBIR PRODUCTOS</a></li>
             <li><a href="{{ url_for('graficas.graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
             <li><a href="{{ url_for('configuracion.configuracion') }}">CONFIGURACIÓN</a></li>
             <li><a href="{{ url_for('logout.logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
->>>>>>> 6d83164 (mejoras agrimax)
         </ul>
     </div>
 
@@ -62,12 +49,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
-<<<<<<< HEAD
-        <form id="edit-form" method="POST" action="{{ url_for('modificar_producto_individual', producto_id=producto['id']) }}" enctype="multipart/form-data">
-=======
         <form id="edit-form" method="POST" action="{{ url_for('modificar_productos.modificar_producto_individual', producto_id=producto['id']) }}" enctype="multipart/form-data">
->>>>>>> 6d83164 (mejoras agrimax)
             <input type="hidden" name="producto_id" value="{{ producto['id'] }}">
 
             <label for="nombre">Nombre</label>
@@ -99,21 +81,12 @@
 <br><br>
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </form>
-
-<<<<<<< HEAD
-        <form method="POST" action="{{ url_for('eliminar_producto', producto_id=producto['id']) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.');">
-=======
         <form method="POST" action="{{ url_for('eliminar_productos.eliminar_producto', producto_id=producto['id']) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.');">
->>>>>>> 6d83164 (mejoras agrimax)
             <button type="submit" class="btn btn-danger">Eliminar Producto</button>
         </form>
 
         <br>
-<<<<<<< HEAD
-        <a href="{{ url_for('menu') }}" class="volver-menu">Volver al menú</a>
-=======
         <a href="{{ url_for('menu_provedor.menu') }}" class="volver-menu">Volver al menú</a>
->>>>>>> 6d83164 (mejoras agrimax)
     </main>
 
     <footer>

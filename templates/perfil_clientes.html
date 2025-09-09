@@ -26,11 +26,7 @@
         <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
         <button id="menuBtn" class="menu-btn">☰</button>
         <div class="header-right">
-<<<<<<< HEAD
-            <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
-=======
             <button class="cart-btn" onclick="location.href='{{ url_for('carrito.carrito') }}'">
->>>>>>> 6d83164 (mejoras agrimax)
                 <i class="fas fa-shopping-cart"></i>
             </button>
         </div>
@@ -38,16 +34,9 @@
 
     <div id="sidebar" class="sidebar">
         <ul class="sidebar-menu">
-<<<<<<< HEAD
-            <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
-            <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
-            <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
-            <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
-=======
             <li><a href="{{ url_for('menu_clientes.menu_principal') }}">MENÚ PRINCIPAL</a></li>
             <li><a href="{{ url_for('configuracion.configuracion') }}">CONFIGURACIÓN</a></li>
             <li><a href="{{ url_for('logout.logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
->>>>>>> 6d83164 (mejoras agrimax)
         </ul>
     </div>
 
@@ -67,11 +56,7 @@
                 <p><strong>Biografía:</strong> {{ perfil['biografia'] }}</p>
             </div>
             <div class="buttons">
-<<<<<<< HEAD
-                <button onclick="location.href='{{ url_for('configuracion') }}'">EDITAR PERFIL</button>
-=======
                 <button onclick="location.href='{{ url_for('configuracion.configuracion') }}'">EDITAR PERFIL</button>
->>>>>>> 6d83164 (mejoras agrimax)
             </div>
         </div>
     </div>
