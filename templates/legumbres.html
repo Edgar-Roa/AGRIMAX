@@ -22,7 +22,11 @@
             <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
             <button id="menuBtn" class="menu-btn">☰</button>
             <div class="header-right">
+<<<<<<< HEAD
                 <button class="cart-btn" onclick="location.href='{{ url_for('carrito') }}'">
+=======
+                <button class="cart-btn" onclick="location.href='{{ url_for('carrito.carrito') }}'">
+>>>>>>> 6d83164 (mejoras agrimax)
                     <i class="fas fa-shopping-cart"></i>
                 </button>
             </div>
@@ -30,6 +34,7 @@
     
         <div id="sidebar" class="sidebar">
             <ul class="sidebar-menu">
+<<<<<<< HEAD
                 <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
                 <li><a href="{{ url_for('menu_principal') }}">MENÚ PRINCIPAL</a></li>
                 <li>
@@ -44,6 +49,21 @@
                 <li><a href="{{ url_for('confirmar_pedido') }}">CONFIRMAR COMPRA</a></li>
                 <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
                 <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+=======
+                <li><a href="{{ url_for('usuarios.perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+                <li><a href="{{ url_for('menu_clientes.menu_principal') }}">MENÚ PRINCIPAL</a></li>
+                <li>
+                    <button class="dropdown-btn">CATEGORÍAS <i class="fas fa-caret-down"></i></button>
+                    <ul class="dropdown-container">
+                        <li><a href="{{ url_for('verduras.verduras') }}">Verduras</a></li>
+                        <li><a href="{{ url_for('frutas.frutas') }}">Frutas</a></li>
+                        <li><a href="{{ url_for('legumbres.legumbres') }}">Legumbres</a></li>
+                        <li><a href="{{ url_for('hortalizas.hortalizas') }}">Hortalizas</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('configuracion.configuracion') }}">CONFIGURACIÓN</a></li>
+                <li><a href="{{ url_for('logout.logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+>>>>>>> 6d83164 (mejoras agrimax)
             </ul>
         </div>
     

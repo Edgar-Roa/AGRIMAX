@@ -21,18 +21,31 @@
      <header class="header">
     <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
     <button id="menuBtn" class="menu-btn">☰</button>
+<<<<<<< HEAD
     <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
         🔔
+=======
+    <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones.notificaciones') }}'">
+        
+>>>>>>> 6d83164 (mejoras agrimax)
     </button>
 </header>
 
     <div id="sidebar" class="sidebar">
         <ul class="sidebar-menu">
+<<<<<<< HEAD
             <li><a href="{{ url_for('menu') }}">MENU PRINCIPAL</a></li>
             <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
             <li><a href="{{ url_for('graficas_agri') }}">ESTADÍSTICAS</a></li>
             <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
             <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+=======
+            <li><a href="{{ url_for('menu_provedor.menu') }}">MENU PRINCIPAL</a></li>
+            <li><a href="{{ url_for('nuevo_producto.nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas.graficas_agri') }}">ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion.configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout.logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+>>>>>>> 6d83164 (mejoras agrimax)
         </ul>
     </div>
 
@@ -47,7 +60,11 @@
                     onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-profile.jpg') }}'">
             </div>
             <div class="buttons">
+<<<<<<< HEAD
                 <button onclick="location.href='{{ url_for('configuracion') }}'">EDITAR PERFIL</button>
+=======
+                <button onclick="location.href='{{ url_for('configuracion.configuracion') }}'">EDITAR PERFIL</button>
+>>>>>>> 6d83164 (mejoras agrimax)
             </div>
         </div>
     </div>

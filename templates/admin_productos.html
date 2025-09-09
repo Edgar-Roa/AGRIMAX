@@ -71,8 +71,13 @@
                     <td>{{ producto[5] }}</td>
                     <td>
                         <div class="d-flex gap-2">
+<<<<<<< HEAD
                             <a href="{{ url_for('editar_producto', id=producto[0]) }}" class="btn btn-warning btn-sm action-btn">Editar</a>
                             <form action="{{ url_for('eliminar_producto_admin', producto_id=producto[0]) }}" method="post">
+=======
+                            <a href="{{ url_for('admin_editar_productos.editar_producto', id=producto[0]) }}" class="btn btn-warning btn-sm action-btn">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_productos.eliminar_producto_admin', producto_id=producto[0]) }}" method="post">
+>>>>>>> 6d83164 (mejoras agrimax)
                                 <button type="submit" class="btn btn-danger btn-sm action-btn">Eliminar</button>
                             </form>
                         </div>

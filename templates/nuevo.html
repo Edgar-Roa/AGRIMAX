@@ -21,19 +21,33 @@
     <header class="header">
         <div class="logo" onclick="location.href='/menu_principal'">AGRIMAX</div>
         <button id="menuBtn" class="menu-btn">☰</button>
+<<<<<<< HEAD
         <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones') }}'">
             🔔
+=======
+        <button id="notificacionesBtn" class="notificaciones-btn" onclick="location.href='{{ url_for('notificaciones.notificaciones') }}'">
+            
+>>>>>>> 6d83164 (mejoras agrimax)
         </button>
     </header>
 
     <div id="sidebar" class="sidebar">
         <ul class="sidebar-menu">
+<<<<<<< HEAD
             <li><a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
             <li><a href="{{ url_for('menu') }}">MENU PRINCIPAL</a></li>
             <li><a href="{{ url_for('nuevo') }}">SUBIR PRODUCTOS</a></li>
             <li><a href="{{ url_for('graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
             <li><a href="{{ url_for('configuracion') }}">CONFIGURACIÓN</a></li>
             <li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+=======
+            <li><a href="{{ url_for('usuarios.perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
+            <li><a href="{{ url_for('menu_provedor.menu') }}">MENU PRINCIPAL</a></li>
+            <li><a href="{{ url_for('nuevo_producto.nuevo') }}">SUBIR PRODUCTOS</a></li>
+            <li><a href="{{ url_for('graficas.graficas_agri') }}">GRÁFICAS Y ESTADÍSTICAS</a></li>
+            <li><a href="{{ url_for('configuracion.configuracion') }}">CONFIGURACIÓN</a></li>
+            <li><a href="{{ url_for('logout.logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
+>>>>>>> 6d83164 (mejoras agrimax)
         </ul>
     </div>
 
@@ -41,7 +55,11 @@
 
     <div class="form-container">
         <h1>Sube tu Producto</h1>
+<<<<<<< HEAD
         <form method="POST" action="{{ url_for('nuevo') }}" enctype="multipart/form-data">
+=======
+        <form method="POST" action="{{ url_for('nuevo_producto.nuevo') }}" enctype="multipart/form-data">
+>>>>>>> 6d83164 (mejoras agrimax)
             <h2>Información General del Producto</h2>
             <label for="nombre">Nombre del Producto:</label>
             <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto" required>
