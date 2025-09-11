@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, flash, session, redirect, url_for, request
+from flask import Blueprint, render_template, flash, session, redirect, url_for, request, current_app
 from flask_login import login_required
 from bd import conectar_bd
+from utils import allowed_file
+from werkzeug.utils import secure_filename
+import os
 
 configuracion_bp = Blueprint('configuracion', __name__)
 
@@ -54,6 +57,13 @@ def configuracion():
         elif request.method == 'POST':
             seccion = request.form.get('seccion')
 
+            cursor.execute("SELECT 1 FROM perfiles WHERE usuario_id = %s", (usuario_id,))
+            if not cursor.fetchone():
+                cursor.execute(
+                    "INSERT INTO perfiles (usuario_id, foto, biografia, notificaciones_email, notificaciones_sms) VALUES (%s, %s, %s, %s, %s)",
+                    (usuario_id, 'imagenes/default-profile.jpg', '', False, False)
+                )
+
             if seccion == 'perfil':
                 nombre = request.form.get('nombre')
                 apellido = request.form.get('apellido', '')
@@ -62,7 +72,7 @@ def configuracion():
 
                 if foto and allowed_file(foto.filename):
                     filename = secure_filename(f"{usuario_id}_{foto.filename}")
-                    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                     foto.save(filepath)
 
                     ruta_foto = f"imagenes/{filename}"
@@ -99,7 +109,7 @@ def configuracion():
             conexion.close()
 
             flash("Configuración actualizada correctamente.", "success")
-            return redirect(url_for('configuracion'))
+            return redirect(url_for('configuracion.configuracion'))
 
     except Exception as e:
         print(f"Error al manejar la configuración: {e}")

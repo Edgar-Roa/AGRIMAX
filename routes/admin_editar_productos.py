@@ -25,7 +25,7 @@ def editar_producto(id):
         """, (nombre, descripcion, precio, categoria_id, id))
         conexion.commit()
         flash("Producto actualizado correctamente.", "success")
-        return redirect(url_for('admin_productos'))
+        return redirect(url_for('admin_productos.admin_productos'))
 
     cursor.execute("SELECT id, nombre, descripcion, precio, categoria_id FROM productos WHERE id = %s", (id,))
     producto = cursor.fetchone()

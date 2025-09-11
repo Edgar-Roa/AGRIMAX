@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, session, redirect, url_for, request
 from flask_login import login_required
 from bd import conectar_bd
+from correo_utils import enviar_correo_pedido
 
 confirmar_pedidos_bp = Blueprint('confirmar_pedidos', __name__)
 

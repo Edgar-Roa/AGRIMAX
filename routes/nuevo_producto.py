@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, flash, session, redirect, url_for, request
+from flask import Blueprint, render_template, flash, session, redirect, url_for, request, current_app
 from flask_login import login_required
 from bd import conectar_bd
+from utils import allowed_file
+from werkzeug.utils import secure_filename
+import os
 
 nuevo_producto_bp = Blueprint('nuevo_producto', __name__)
 
@@ -9,7 +12,7 @@ nuevo_producto_bp = Blueprint('nuevo_producto', __name__)
 def nuevo():
     if 'usuario_id' not in session:
         flash("Debes iniciar sesión para subir productos.", "error")
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
 
     usuario_id = session['usuario_id']
 
@@ -20,7 +23,7 @@ def nuevo():
         tipo_usuario = cursor.fetchone()
         if tipo_usuario and tipo_usuario[0] != "Proveedor":
             flash("Solo los proveedores pueden subir productos.", "error")
-            return redirect(url_for('menu'))
+            return redirect(url_for('menu_provedor.menu'))
         cursor.close()
 
     if request.method == 'POST':
@@ -32,7 +35,7 @@ def nuevo():
 
         if not nombre or not precio or not categoria_id:
             flash("El nombre, precio y categoría son obligatorios.", "error")
-            return redirect(url_for('nuevo'))
+            return redirect(url_for('nuevo_producto.nuevo'))
 
         try:
 
@@ -45,7 +48,7 @@ def nuevo():
 
             if imagen and allowed_file(imagen.filename):
                 filename = secure_filename(f"{producto_id}_{imagen.filename}")
-                ruta = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                 imagen.save(ruta)
 
                 cursor.execute("""
@@ -58,11 +61,11 @@ def nuevo():
             conexion.close()
 
             flash("Producto subido correctamente.", "success")
-            return redirect(url_for('menu'))
+            return redirect(url_for('menu_provedor.menu'))
         except Exception as e:
             print("Error al subir el producto:", e)
             flash("Ocurrió un error al subir el producto. Intenta nuevamente.", "error")
-            return redirect(url_for('nuevo'))
+            return redirect(url_for('nuevo_producto.nuevo'))
 
     cursor = conexion.cursor()
     cursor.execute("SELECT id, nombre FROM categorias")

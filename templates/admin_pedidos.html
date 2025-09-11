@@ -59,7 +59,7 @@
                     <td>{{ pedido.fecha }}</td>
                     <td>{{ pedido.estado }}</td>
                     <td>
-                        <form action="{{ url_for('eliminar_pedido', pedido_id=pedido.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres eliminar este pedido?');">
+                        <form action="{{ url_for('admin_eliminar_pedidos.eliminar_pedido', pedido_id=pedido.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres eliminar este pedido?');">
                             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
                     </td>

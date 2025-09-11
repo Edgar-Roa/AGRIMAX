@@ -11,7 +11,7 @@ def admin_pedidos():
         conexion = conectar_bd()
         if not conexion:
             flash("Error al conectar con la base de datos.", "error")
-            return redirect(url_for('admin_dashboard'))  
+            return redirect(url_for('admin_dashboard.admin_dashboard'))  
 
         cursor = conexion.cursor()
 
@@ -57,9 +57,9 @@ def admin_pedidos():
     except Exception as e:
         print("Error al obtener los pedidos:", e)
         flash("Error al cargar los pedidos.", "error")
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('admin_dashboard.admin_dashboard'))
 
     except Exception as e:
         print("Error al obtener los pedidos:", e)
         flash("Error al cargar los pedidos.", "error")
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('admin_dashboard.admin_dashboard'))

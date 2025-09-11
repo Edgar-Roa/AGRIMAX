@@ -35,6 +35,6 @@ def crear_usuario():
         conexion.close()
 
         flash("Usuario creado exitosamente.", "success")
-        return redirect(url_for('admin_usuarios'))
+        return redirect(url_for('admin_usuarios.admin_usuarios'))
 
     return render_template('crear_usuario.html')

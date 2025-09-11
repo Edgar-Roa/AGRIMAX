@@ -22,13 +22,13 @@ def agregar_al_carrito():
 
         if not resultado:
             flash("Error: Producto no encontrado.", "error")
-            return redirect(url_for('menu_principal'))
+            return redirect(url_for('menu_clientes.menu_principal'))
 
         precio_unitario = resultado[0]
 
         if precio_unitario is None:
             flash(f"Error: El producto con ID {producto_id} no tiene un precio válido.", "error")
-            return redirect(url_for('menu_principal'))
+            return redirect(url_for('menu_clientes.menu_principal'))
 
         carrito = session.get('carrito', [])
 
@@ -48,9 +48,9 @@ def agregar_al_carrito():
         print("Carrito corregido después de validación:", session['carrito'])
 
         flash("Producto agregado al carrito.", "success")
-        return redirect(url_for('menu_principal'))
+        return redirect(url_for('menu_clientes.menu_principal'))
 
     except Exception as e:
         print("Error al agregar al carrito:", e)
         flash("Error al agregar producto al carrito.", "error")
-        return redirect(url_for('menu_principal'))
+        return redirect(url_for('menu_clientes.menu_principal'))

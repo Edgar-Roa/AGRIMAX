@@ -10,10 +10,10 @@ def admin_usuarios():
     if session.get('tipo_usuario') != 'Administrador':
         flash("Acceso denegado", "error")
         return redirect(url_for('inicio.inicio'))
-    conexion = conectar_bd()
-    cursor = conexion.cursor()
+    conn = conectar_bd()
+    cursor = conn.cursor()
     cursor.execute("SELECT id, nombre, correo, tipo, fecha_nacimiento FROM usuarios")
     usuarios = cursor.fetchall()
     cursor.close()
-    conexion.close()
+    conn.close()
     return render_template('admin_usuarios.html', usuarios=usuarios)
