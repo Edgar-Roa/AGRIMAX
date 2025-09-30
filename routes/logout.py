@@ -7,4 +7,4 @@ logout_bp = Blueprint("logout",__name__)
 def logout():
     session.clear()
     flash("Has cerrado sesión correctamente.", "success")
-    return redirect(url_for('login.login'))
+    return redirect(url_for('inicio.inicio'))

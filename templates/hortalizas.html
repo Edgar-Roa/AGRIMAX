@@ -29,7 +29,6 @@
 
 <div id="sidebar" class="sidebar">
     <ul class="sidebar-menu">
-<li><a href="{{ url_for('logout') }}" class="logout-btn">CERRAR SESIÓN</a></li>
         <li><a href="{{ url_for('usuarios.perfil', usuario_id=session['usuario_id']) }}">PERFIL</a></li>
         <li><a href="{{ url_for('menu_clientes.menu_principal') }}">MENÚ PRINCIPAL</a></li>
         <li>

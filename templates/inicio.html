@@ -48,23 +48,30 @@
             </div>
         </div>
     </div>
-
+    <h1>Productos Destacados</h1>
+    <br><br>
     <div class="productos-container">
+    {% if productos %}
+        {% for producto in productos %}
         <div class="producto">
-            <img src="/static/imagenes/jitomates.jpg" alt="Producto 1">
-            <h3>JITOMATES</h3>
-            <p>JITOMATES EN MUY BUEN PRECIO.</p>
+            <img src="{{ url_for('static', filename=producto[6]) if producto[6] else url_for('static', filename='imagenes/default-product.jpg') }}" 
+                             alt="{{ producto[1] }}" class="producto-imagen">   
+            <h3>{{ producto.nombre }}</h3>
+            <strong>Descripción:</strong> <p>{{ producto[2] }}</p>
+            <strong>Precio:</strong> <p>${{ producto[3] }}</p>
+            <strong>Categoría:</strong> <p>{{ producto[4] }}</p>
+            <strong>Proveedor:</strong> <p>{{ producto[5] }}</p>
+            <form action="{{ url_for('agregar_carrito.agregar_al_carrito', producto_id=producto.id) }}" method="post">
+                <label for="cantidad_{{ producto.id }}">Cantidad:</label>
+                <input type="number" id="cantidad_{{ producto.id }}" name="cantidad" value="1" min="1" required>
+                <button type="submit" class="agregar-carrito-btn">Agregar al Carrito</button>
+            </form>
         </div>
-        <div class="producto">
-            <img src="/static/imagenes/papa.jpg" alt="Producto 2">
-            <h3>PAPAS</h3>
-            <p>PAPAS EN MUY BUEN PRECIO.</p>
-        </div>
-        <div class="producto">
-            <img src="/static/imagenes/pimientos.webp" alt="Producto 3">
-            <h3>PIMIENTOS</h3>
-            <p>PIMIENTOS EN BUEN PRECIO.</p>
-        </div>
-    </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay productos disponibles en este momento.</p>
+    {% endif %}
+</div>
 </body>
+</html>
 </html>

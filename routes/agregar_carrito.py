@@ -14,7 +14,7 @@ def agregar_al_carrito():
     try:
         conexion = conectar_bd()
         cursor = conexion.cursor()
-        
+
         cursor.execute("SELECT precio FROM productos WHERE id = %s", (producto_id,))
         resultado = cursor.fetchone()
         cursor.close()
@@ -32,25 +32,32 @@ def agregar_al_carrito():
 
         carrito = session.get('carrito', [])
 
-        nuevo_producto = {
-            'producto_id': int(producto_id), 
-            'cantidad': cantidad, 
-            'precio_unitario': float(precio_unitario)  
-        }
-
+        producto_encontrado = False
         for producto in carrito:
-            if producto['producto_id'] == nuevo_producto['producto_id'] and 'precio_unitario' not in producto:
-                producto['precio_unitario'] = nuevo_producto['precio_unitario']
+            if producto['producto_id'] == int(producto_id):
+                producto['cantidad'] += cantidad
+                producto_encontrado = True
+                break
 
-        carrito.append(nuevo_producto)
+        if not producto_encontrado:
+            nuevo_producto = {
+                'producto_id': int(producto_id),
+                'cantidad': cantidad,
+                'precio_unitario': float(precio_unitario)
+            }
+            carrito.append(nuevo_producto)
+
         session['carrito'] = carrito
 
-        print("Carrito corregido después de validación:", session['carrito'])
+        print("Carrito actualizado:", session['carrito'])
 
         flash("Producto agregado al carrito.", "success")
         return redirect(url_for('menu_clientes.menu_principal'))
 
     except Exception as e:
+        print("Producto ID recibido:", producto_id)
+        print("Cantidad recibida:", cantidad)
+        print("Carrito actual:", session.get('carrito'))
         print("Error al agregar al carrito:", e)
         flash("Error al agregar producto al carrito.", "error")
         return redirect(url_for('menu_clientes.menu_principal'))

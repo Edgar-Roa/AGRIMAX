@@ -77,6 +77,8 @@ from routes.verduras import verduras_bp
 from routes.frutas import frutas_bp
 from routes.legumbres import legumbres_bp
 from routes.hortalizas import hortalizas_bp
+from routes.vaciar_carrito import vaciar_carrito_bp
+from routes.actualizar_cantidad import actualizar_cantidad_bp
 
 app.register_blueprint(inicio_bp)
 app.register_blueprint(registro_bp)
@@ -115,6 +117,8 @@ app.register_blueprint(verduras_bp)
 app.register_blueprint(frutas_bp)
 app.register_blueprint(legumbres_bp)
 app.register_blueprint(hortalizas_bp)
+app.register_blueprint(vaciar_carrito_bp)
+app.register_blueprint(actualizar_cantidad_bp)
 
 @app.after_request
 def add_no_cache_headers(response):

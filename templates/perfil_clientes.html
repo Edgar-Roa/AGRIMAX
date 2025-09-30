@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +8,10 @@
     <link rel="stylesheet" href="/static/css/perfil_cliente.css">
     <link rel="stylesheet" href="/static/css/boton_hamburguesaP.css">
     <link rel="stylesheet" href="/static/css/footer.css">
-
     <script src="/static/js/perfil_cliente.js" defer></script>
     <script src="/static/js/boton_hamburguesaP.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
     {% if not session.get('usuario_id') %}
     <script>
@@ -28,6 +25,9 @@
         <div class="header-right">
             <button class="cart-btn" onclick="location.href='{{ url_for('carrito.carrito') }}'">
                 <i class="fas fa-shopping-cart"></i>
+                {% if cantidad_total > 0 %}
+                <span class="cart-count">{{ cantidad_total }}</span>
+                {% endif %}
             </button>
         </div>
     </header>
@@ -46,10 +46,10 @@
         <img src="/static/imagenes/portada.jpg" alt="Portada" class="banner-image">
         <div class="profile">
             <div class="profile-info">
-                <img src="{{ url_for('static', filename=perfil['foto'].replace('static/', '')) if perfil['foto'] else url_for('static', filename='imagenes/default-profile.jpg') }}" 
-                    alt="Foto de Perfil"
-                    class="profile-image"
-                    onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-profile.jpg') }}'">
+                <img src="{{ url_for('static', filename=perfil['foto'].replace('static/', '')) if perfil['foto'] else url_for('static', filename='imagenes/default-profile.jpg') }}"
+                     alt="Foto de Perfil"
+                     class="profile-image"
+                     onerror="this.onerror=null;this.src='{{ url_for('static', filename='imagenes/default-profile.jpg') }}'">
                 <h2>{{ perfil['nombre'] }}</h2>
                 <p><strong>Correo:</strong> {{ perfil['correo'] }}</p>
                 <p><strong>Tipo de Usuario:</strong> {{ perfil['tipo'] }}</p>
@@ -61,22 +61,24 @@
         </div>
     </div>
 
-<h2>Historial de Compras</h2>
-{% if compras %}
-    <table>
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Producto</th>
-                <th>Proveedor</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-                <th>Fecha</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for compra in compras %}
+    <div class="historial-wrapper">
+    <div class="historial-compras">
+        <h2>Historial de Compras</h2>
+        {% if compras %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Producto</th>
+                    <th>Proveedor</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for compra in compras %}
                 <tr>
                     <td>
                         <img src="{{ url_for('static', filename=compra['ruta_imagen'].replace('static/', '')) if compra['ruta_imagen'] else url_for('static', filename='imagenes/default-product.jpg') }}"
@@ -89,25 +91,26 @@
                     <td>{{ compra['cantidad'] }}</td>
                     <td>${{ compra['precio_unitario'] }}</td>
                     <td>${{ compra['subtotal'] }}</td>
-                    <td>{{ compra['fecha'] }}</td>>
+                    <td>{{ compra['fecha'] }}</td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No has realizado compras aún.</p>
-{% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No has realizado compras aún.</p>
+        {% endif %}
+    </div>
 
+    <script>
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    </script>
+
+    <footer>
+        <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
+    </footer>
 </body>
-<script>
-    window.onpageshow = function(event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    };
-</script>
-
-<footer>
-    <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
-</footer>
 </html>

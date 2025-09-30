@@ -26,8 +26,7 @@ def hortalizas():
                 return redirect(url_for('menu'))
 
 
-            cursor.execute
-            ("""
+            cursor.execute("""
                 SELECT p.id, p.nombre, p.descripcion, p.precio, c.nombre AS categoria,
                     u.nombre AS proveedor, ip.ruta_imagen
                 FROM productos p
@@ -35,7 +34,8 @@ def hortalizas():
                 JOIN usuarios u ON p.proveedor_id = u.id
                 LEFT JOIN imagenes_productos ip ON p.id = ip.producto_id
                 WHERE c.nombre = 'Hortalizas'
-                ORDER BY p.fecha_creacion DESC""")
+                ORDER BY p.fecha_creacion DESC
+            """)
             productos = cursor.fetchall()
 
             productos_procesados = []

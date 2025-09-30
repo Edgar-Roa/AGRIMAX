@@ -34,12 +34,32 @@ def menu_principal():
                 ORDER BY p.fecha_creacion DESC
             """)
             productos = cursor.fetchall()
+
+            productos_procesados = []
+            for producto in productos:
+                productos_procesados.append({
+                    'id': producto[0],
+                    'nombre': producto[1],
+                    'descripcion': producto[2],
+                    'precio': producto[3],
+                    'categoria': producto[4],
+                    'proveedor': producto[5],
+                    'imagen': f"/static/{producto[6]}" if producto[6] else '/static/imagenes/default-product.jpg',
+                    'proveedor_id': producto[7]
+                })
+
+            carrito = session.get('carrito', [])
+            cantidad_total = sum(item['cantidad'] for item in carrito)
+
             print(f"Productos obtenidos: {productos}")
 
             cursor.close()
             conexion.close()
 
-            return render_template('menu_cliente.html', productos=productos, usuario_id=usuario_id)
+            return render_template('menu_cliente.html',
+                                   productos=productos_procesados,
+                                   cantidad_total=cantidad_total,
+                                   usuario_id=usuario_id)
         else:
             flash("Error al conectar con la base de datos.", "error")
             return redirect(url_for('inicio.inicio'))

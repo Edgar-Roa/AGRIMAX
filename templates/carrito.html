@@ -51,12 +51,43 @@
 <main>
     <h1>Carrito de Compras</h1>
 
-    <div id="cart-container"></div>
-
-    <h2 id="total-price">Total: $0</h2>
-
+    <div class="cart-container">
+    {% if productos %}
+        {% for producto in productos %}
+        <div class="cart-item">
+            <img src="{{ url_for('static', filename=producto.imagen) if producto.imagen else url_for('static', filename='imagenes/default-product.jpg') }}" alt="{{ producto.nombre }}">
+            <div class="item-info">
+                <h3>{{ producto.nombre }}</h3>
+                <p>{{ producto.descripcion }}</p>
+                <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+                <p><strong>Precio unitario:</strong> ${{ producto.precio }}</p>
+            <input type="number"
+                 name="cantidad"
+                value="{{ producto.cantidad }}"
+                min="0"
+                class="cantidad-input"
+                data-producto-id="{{ producto.id }}"
+            >
+                <p><strong>Subtotal:</strong> ${{ producto.subtotal }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <h2 class="total-price">Total: ${{ total }}</h2>
+    {% else %}
+        <p>Tu carrito está vacío.</p>
+    {% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</div>
     <div class="button-group">
-        <button onclick="clearCart()" class="btn-cancelar">Vaciar Carrito</button>
+        <form method="POST" action="{{ url_for('vaciar_carrito.vaciar_carrito') }}">
+            <button type="submit" class="btn-cancelar">Vaciar Carrito</button>
+        </form>
         <form method="POST" action="{{ url_for('confirmar_pedidos.confirmar_pedido') }}" onsubmit="sessionStorage.setItem('compraExitosa', true);">
             <button type="submit" class="btn-comprar">Comprar</button>
         </form>
@@ -66,21 +97,33 @@
 <script src="/static/js/carrito.js"></script>
 <script src="/static/js/boton_hamburguesaP.js"></script>
 <script>
-function clearCart() {
-    localStorage.removeItem("cart");
-    document.getElementById("cart-container").innerHTML = "<p>Tu carrito está vacío.</p>";
-    document.getElementById("total-price").textContent = "Total: $0";
-}
-window.onload = function () {
-    let compraExitosa = sessionStorage.getItem("compraExitosa");
-    if (compraExitosa) {
-        clearCart();
-        sessionStorage.removeItem("compraExitosa");
-    }
-};
+document.querySelectorAll('.cantidad-input').forEach(input => {
+    input.addEventListener('change', function () {
+        const productoId = this.dataset.productoId;
+        const nuevaCantidad = this.value;
 
-    </script>
-
+        fetch('/actualizar_cantidad', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest' // para distinguir AJAX
+            },
+            body: JSON.stringify({
+                producto_id: productoId,
+                nueva_cantidad: nuevaCantidad
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // recarga para ver el nuevo subtotal y total
+            } else {
+                alert(data.message || "Error al actualizar cantidad.");
+            }
+        });
+    });
+});
+</script>
 <footer>
     <p>© 2025 AGRIMAX. TODOS LOS DERECHOS RESERVADOS.</p>
 

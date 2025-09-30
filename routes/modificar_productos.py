@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, flash, session, redirect, url_for, request
+from flask import Blueprint, render_template, flash, session, redirect, url_for, request, current_app
 from flask_login import login_required
 from bd import conectar_bd
+from utils import allowed_file
+from werkzeug.utils import secure_filename
+import os
 
 modificar_productos_bp = Blueprint('modificar_productos', __name__)
 
@@ -82,7 +85,7 @@ def modificar_producto_individual(producto_id):
             if imagen and allowed_file(imagen.filename):
 
                 filename = secure_filename(f"{producto_id}_{imagen.filename}")
-                ruta = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                 imagen.save(ruta)
 
 
@@ -102,4 +105,4 @@ def modificar_producto_individual(producto_id):
         except Exception as e:
             print(f"Error al modificar el producto: {e}")
             flash("Ocurrió un error al modificar el producto.", "error")
-            return redirect(url_for('modificar_producto_individual', producto_id=producto_id))
+            return redirect(url_for('modificar_productos.modificar_producto_individual', producto_id=producto_id))

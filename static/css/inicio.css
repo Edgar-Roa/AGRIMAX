@@ -7,6 +7,11 @@
         
         body {
             padding-top: 60px;
+            background-image: url('/static/imagenes/ima1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         
         .agrimax-header {
@@ -153,6 +158,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             padding: 20px;
+            
         }
 
         .producto {
@@ -179,3 +185,51 @@
             padding: 0 15px 15px;
             color: #555;
         }
+
+        .producto form input[type="number"] {
+    width: 70px;
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.producto form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.producto form button:hover {
+    background-color: #0056b3;
+}
+
+.agregar-carrito-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.agregar-carrito-btn:hover {
+    background-color: #218838;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5rem;
+    color: black;
+} 

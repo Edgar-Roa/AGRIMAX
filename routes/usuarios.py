@@ -74,7 +74,9 @@ def perfil(usuario_id):
     if perfil['tipo'] == "Proveedor":
         return render_template('perfil.html', perfil=perfil)
     elif perfil['tipo'] == "Cliente":
-        return render_template('perfil_clientes.html', perfil=perfil, compras=compras)
+        carrito = session.get('carrito', [])
+        cantidad_total = sum(item['cantidad'] for item in carrito)
+        return render_template('perfil_clientes.html', perfil=perfil, compras=compras, cantidad_total=cantidad_total)
     else:
         flash("Tipo de usuario desconocido.", "error")
         return redirect(url_for('inicio'))

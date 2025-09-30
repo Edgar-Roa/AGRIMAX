@@ -10,6 +10,8 @@
     <script src="/static/js/menu_cliente.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/footer.css"> 
+    <link rel="stylesheet" href="/static/css/frutas.css">
+    <script src="/static/js/frutas.js" defer></script>
 
 </head>
 <body>
@@ -25,6 +27,9 @@
         <div class="header-right">
             <button class="cart-btn" onclick="location.href='{{ url_for('carrito.carrito') }}'">
                 <i class="fas fa-shopping-cart"></i>
+                {% if cantidad_total > 0 %}
+                <span class="cart-count">{{ cantidad_total }}</span>
+                {% endif %}
             </button>
         </div>
     </header>
@@ -51,27 +56,49 @@
     <main>
         <h1>Productos Disponibles</h1>
         <br><br>
-        <div class="productos-container">
-            {% if productos %}
-                {% for producto in productos %}
-                    <div class="producto-card">
-                        <img src="{{ url_for('static', filename=producto[6]) if producto[6] else url_for('static', filename='imagenes/default-product.jpg') }}" 
-                             alt="{{ producto[1] }}" class="producto-imagen">
-                        <h2>{{ producto[1] }}</h2>
-                        <p><strong>Descripción:</strong> {{ producto[2] }}</p>
-                        <p><strong>Precio:</strong> ${{ producto[3] }}</p>
-                        <p><strong>Categoría:</strong> {{ producto[4] }}</p>
-                        <p><strong>Fecha de Publicación:</strong> {{ producto[5] }}</p>
-                        <form action="{{ url_for('agregar_carrito.agregar_al_carrito') }}" method="POST" onsubmit="notificarAgregado(event)">
-                            <input type="hidden" name="producto_id" value="{{ producto[0] }}">
-                            <button onclick="addToCart('{{ producto[0] }}', '{{ producto[1] }}', '{{ producto[3] }}', '{{ url_for('static', filename=producto[6]) }}')">Agregar al carrito</button>
-                        </form>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>No hay productos disponibles en este momento.</p>
-            {% endif %}
+        <h1 class="main-title">NUESTROS PRODUCTOS DISPONIBLES</h1>
+
+<div class="products-container">
+    {% for producto in productos %}
+    <div class="product-card" onclick="openModal('{{ producto.id }}')">
+        <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+        <h3>{{ producto.nombre }}</h3>
+    </div>
+    {% endfor %}
+</div>
+
+{% for producto in productos %}
+<div class="product-modal" id="{{ producto.id }}-modal">
+    <div class="modal-content">
+        <div class="modal-image">
+            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
         </div>
+        <div class="modal-info">
+            <div class="company-name">{{ producto.proveedor }}</div>
+            <h2 class="product-title">{{ producto.nombre }}</h2>
+            <p class="product-description">{{ producto.descripcion }}</p>
+            <div class="pricing-info">
+                <div class="price-item"><strong>Precio:</strong> ${{ producto.precio }}</div>
+                <div class="price-item"><strong>Categoría:</strong> {{ producto.categoria }}</div>
+            </div>
+        <form action="{{ url_for('agregar_carrito.agregar_al_carrito') }}" method="POST" class="modal-buttons">
+            <input type="hidden" name="producto_id" value="{{ producto.id }}">
+            <input type="number" name="cantidad" value="1" min="1" required>
+            <button type="submit" class="add-to-cart-btn">Agregar al carrito</button>
+        </form>
+        </div>
+    </div>
+    <button class="close-modal" onclick="closeModal('{{ producto.id }}-modal')">×</button>
+</div>
+{% endfor %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
     </main>
 
     <div id="notificacion" class="notificacion">Producto agregado al carrito ✅</div>
@@ -89,7 +116,21 @@
             window.location.reload();
         }
     };
+    function openModal(id) {
+        document.getElementById(id + '-modal').style.display = 'block';
+        document.getElementById('overlay').classList.add('active');
+    }
 
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        document.getElementById('overlay').classList.remove('active');
+    }
+
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
     </script>
 
 </body>

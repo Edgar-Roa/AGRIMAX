@@ -50,3 +50,5 @@ def carrito():
 
     total = sum([p['subtotal'] for p in productos])
     return render_template('carrito.html', productos=productos, total=total, usuario_id=usuario_id)
+
+    
