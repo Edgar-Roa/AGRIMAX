@@ -26,7 +26,8 @@ CREATE TABLE perfiles (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 select * from perfiles;
-
+ALTER TABLE perfiles ADD COLUMN cursor_size VARCHAR(20) DEFAULT 'default';
+ALTER TABLE perfiles ADD COLUMN modo_lector VARCHAR(10) DEFAULT 'off';
 SELECT foto FROM perfiles WHERE usuario_id = ID_DEL_USUARIO;
 
 

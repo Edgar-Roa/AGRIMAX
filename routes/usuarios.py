@@ -8,23 +8,23 @@ usuarios_bp = Blueprint('usuarios', __name__)
 @login_required
 def perfil(usuario_id):
     try:
-
         if session.get('usuario_id') != usuario_id:
             flash("No tienes permiso para acceder a este perfil.", "error")
             return redirect(url_for('inicio'))
 
-
         conexion = conectar_bd()
-        if not conexion:  
+        if not conexion:
             flash("Error al conectar con la base de datos.", "error")
             return redirect(url_for('inicio'))
 
         cursor = conexion.cursor()
 
-
+        # Recuperar perfil básico
         cursor.execute("""
             SELECT u.nombre, u.correo, u.tipo, COALESCE(p.foto, 'static/imagenes/default-profile.jpg') AS foto, 
-                   COALESCE(p.biografia, 'Sin biografía') AS biografia
+                   COALESCE(p.biografia, 'Sin biografía') AS biografia,
+                   COALESCE(p.cursor_size, 'default') AS cursor_size,
+                   COALESCE(p.modo_lector, 'off') AS modo_lector
             FROM usuarios u
             LEFT JOIN perfiles p ON u.id = p.usuario_id
             WHERE u.id = %s
@@ -35,11 +35,16 @@ def perfil(usuario_id):
             flash("El perfil no existe.", "error")
             return redirect(url_for('inicio'))
 
-
         columnas_perfil = [desc[0] for desc in cursor.description]
         perfil = dict(zip(columnas_perfil, perfil_resultado))
 
+        # Construir objeto usuario para accesibilidad
+        usuario = {
+            'cursor_size': perfil['cursor_size'],
+            'modo_lector': perfil['modo_lector']
+        }
 
+        # Recuperar historial de compras
         cursor.execute("""
             SELECT p.nombre AS producto, dp.cantidad, dp.precio_unitario, 
                    dp.cantidad * dp.precio_unitario AS subtotal, ped.fecha, 
@@ -57,9 +62,7 @@ def perfil(usuario_id):
         compras_resultado = cursor.fetchall()
 
         columnas_compras = [desc[0] for desc in cursor.description]
-        compras = [dict(zip(columnas_compras, compra)) for compra in compras_resultado]  
-        for compra in compras:
-            print(f"DEBUG: Producto {compra['producto']} → Estado en perfil: {compra['estado']}")
+        compras = [dict(zip(columnas_compras, compra)) for compra in compras_resultado]
 
     except Exception as e:
         print("Error al cargar el perfil:", e)
@@ -70,13 +73,12 @@ def perfil(usuario_id):
         cursor.close()
         conexion.close()
 
-
     if perfil['tipo'] == "Proveedor":
-        return render_template('perfil.html', perfil=perfil)
+        return render_template('perfil.html', perfil=perfil, usuario=usuario)
     elif perfil['tipo'] == "Cliente":
         carrito = session.get('carrito', [])
         cantidad_total = sum(item['cantidad'] for item in carrito)
-        return render_template('perfil_clientes.html', perfil=perfil, compras=compras, cantidad_total=cantidad_total)
+        return render_template('perfil_clientes.html', perfil=perfil, compras=compras, cantidad_total=cantidad_total, usuario=usuario)
     else:
         flash("Tipo de usuario desconocido.", "error")
         return redirect(url_for('inicio'))

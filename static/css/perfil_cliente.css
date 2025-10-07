@@ -4,7 +4,14 @@
     --text-color: #170909;
     --background-color: #d9d1f3;
 }
-
+.header{
+    position:fixed;
+    z-index: 9999;
+}
+.header{
+    position: fixed;
+    z-index: 10;
+}
 /* General */
 * {
     box-sizing: border-box;
@@ -17,158 +24,126 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    padding-top: 70px;
 }
 
-/* Banner */
-.banner {
+.banner{
     position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
-    margin-bottom: 100px; /* espacio para que el perfil no choque con el siguiente contenido */
 }
 
-.banner img {
+.banner img{
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
     display: block;
 }
-
-/* Perfil */
-.profile {
+/* Portada estilo Facebook */
+.perfil-header {
     position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: center;
     width: 90%;
     max-width: 1200px;
-    margin: -180px auto 0; /* sube el perfil sobre el banner */
-    background-color: rgba(255, 255, 255, 0.85);
+    margin: -80px auto 40px;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     z-index: 2;
 }
 
-.profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.foto-container {
+    flex-shrink: 0;
 }
 
-.profile-info img {
-    width: 120px;
-    height: 120px;
+.foto-perfil {
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     border: 5px solid white;
     object-fit: cover;
 }
 
-.profile-info h2 {
-    margin: 10px 0 5px;
-    font-size: 20px;
-    color: black;
+.datos-perfil {
+    flex-grow: 1;
+    margin-left: 20px;
 }
 
-.profile-info p {
+.datos-perfil h2 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.datos-perfil p {
     font-size: 16px;
-    color: black;
+    margin: 4px 0;
+    color: #333;
 }
 
-.buttons {
-    display: flex;
-    gap: 15px;
+.boton-editar {
+    align-self: flex-start;
 }
 
-.buttons button {
-    background: var(--secondary-color);
+.boton-editar button {
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     padding: 10px 20px;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
     font-size: 14px;
     transition: background 0.3s ease;
+    margin-top: 70px;
 }
 
-.buttons button:hover {
-    background: #e08a25;
+.boton-editar button:hover {
+    background-color: #e08a25;
 }
 
-/* Historial de compras */
-.historial-compras {
-    margin-top: 40px;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    width: 95%;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 0;
+/* Historial tipo muro */
+.historial-feed {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto 60px;
 }
 
-.historial-compras h2 {
+.historial-feed h2 {
     text-align: center;
     font-size: 26px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     color: var(--primary-color);
 }
 
-.historial-compras p {
-    text-align: center;
-    font-size: 18px;
-    color: #555;
+.compra-card {
+    display: flex;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.historial-compras table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    background-color: #fdfdfd;
-    margin: 0 auto;
-}
-
-.historial-compras th,
-.historial-compras td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.historial-compras thead {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-.product-image {
-    width: 50px;
-    height: 50px;
+.compra-card img {
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 5px;
-    display: block;
-    margin: 0 auto;
+    border-radius: 8px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .profile {
-        flex-direction: column;
-        text-align: center;
-    }
+.compra-detalles h3 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--primary-color);
+}
 
-    .buttons {
-        margin-top: 15px;
-    }
+.compra-detalles p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #444;
 }
 
 /* Botón "Ver Proceso" */
@@ -194,16 +169,19 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.historial-wrapper {
-    height: 500px; /* ajusta según tu diseño */
-    overflow-y: auto;
-    margin-top: 20px;
-    padding: 0 20px;
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .perfil-info {
+        width: 95%;
+    }
 
-.historial-compras {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .compra-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .compra-card img {
+        margin-bottom: 10px;
+    }
 }

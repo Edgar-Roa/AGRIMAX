@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/static/css/footer.css?{{ timestamp }}">
     <script src="/static/js/boton_hamburguesa.js?{{ timestamp }}" defer></script>
 </head>
-<body>
+<body class="{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}">
      {% if not session.get('usuario_id') %}
      <script>
          window.location.href = "{{ url_for('login') }}";

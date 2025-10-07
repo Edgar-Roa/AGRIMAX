@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/static/css/configuracion.css">
     <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/cursor.css">
 </head>
-<body>
+<body class="{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}">
     {% if not session.get('usuario_id') %}
     <script>
         window.location.href = "{{ url_for('login') }}";
@@ -60,6 +61,9 @@
                 <li data-section="notificaciones">
                     <i class="fas fa-bell"></i> Notificaciones
                 </li>
+                <li data-section="accesibilidad">
+                    <i class="fas fa-universal-access"></i> Accesibilidad
+                </li>
             </ul>
         </div>
 
@@ -82,13 +86,10 @@
                         <h3 class="card-title">Información Personal</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label">Nombre</label>
+                                <label class="form-label">Nombre Completo</label>
                                 <input type="text" class="form-control" name="nombre" value="{{ usuario.nombre }}" required>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Apellido</label>
-                                <input type="text" class="form-control" name="apellido" value="{{ usuario.apellido if usuario.apellido else '' }}">
-                            </div>
+                            
                         </div>
                         <div class="form-group">
                             <label class="form-label">Biografía</label>
@@ -116,50 +117,50 @@
             </div>
 
             <div class="config-section" id="seguridad">
-                <h2 class="section-title">Seguridad</h2>
-                <form method="POST" action="{{ url_for('configuracion.configuracion') }}">
-                    <input type="hidden" name="seccion" value="seguridad">
-                    <div class="card">
-                        <h3 class="card-title">Cambiar Contraseña</h3>
-                        <div class="form-group">
-                            <label class="form-label">Contraseña actual</label>
-                            <input type="password" class="form-control" name="contraseña_actual" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Nueva contraseña</label>
-                            <input type="password" class="form-control" name="nueva_contraseña" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Confirmar nueva contraseña</label>
-                            <input type="password" class="form-control" name="confirmar_contraseña" required>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-primary">Actualizar contraseña</button>
-                    </div>
-                </form>
+    <h2 class="section-title">Seguridad</h2>
+    <form method="POST" action="{{ url_for('configuracion.configuracion') }}">
+        <input type="hidden" name="seccion" value="contrasena">
+        <div class="card">
+            <h3 class="card-title">Cambiar Contraseña</h3>
+            <div class="form-group">
+                <label class="form-label">Contraseña actual</label>
+                <input type="password" class="form-control" name="actual" required>
             </div>
+            <div class="form-group">
+                <label class="form-label">Nueva contraseña</label>
+                <input type="password" class="form-control" name="nueva" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirmar nueva contraseña</label>
+                <input type="password" class="form-control" name="confirmar" required>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Actualizar contraseña</button>
+        </div>
+    </form>
+</div>
             
             <div class="config-section" id="correo">
-                <h2 class="section-title">Correo Electrónico</h2>
-                <form method="POST" action="{{ url_for('configuracion.configuracion') }}">
-                    <input type="hidden" name="seccion" value="correo">
-                    <div class="card">
-                        <h3 class="card-title">Actualizar Correo Electrónico</h3>
-                        <div class="form-group">
-                            <label class="form-label">Correo actual</label>
-                            <input type="email" class="form-control" value="{{ usuario.correo }}" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Nuevo correo</label>
-                            <input type="email" class="form-control" name="nuevo_correo" placeholder="Ingrese su nuevo correo" required>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-primary">Actualizar correo</button>
-                    </div>
-                </form>
+    <h2 class="section-title">Correo Electrónico</h2>
+    <form method="POST" action="{{ url_for('configuracion.configuracion') }}">
+        <input type="hidden" name="seccion" value="correo">
+        <div class="card">
+            <h3 class="card-title">Actualizar Correo Electrónico</h3>
+            <div class="form-group">
+                <label class="form-label">Correo actual</label>
+                <input type="email" class="form-control" value="{{ usuario.correo }}" disabled>
             </div>
+            <div class="form-group">
+                <label class="form-label">Nuevo correo</label>
+                <input type="email" class="form-control" name="nuevo_correo" placeholder="Ingrese su nuevo correo" required>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Actualizar correo</button>
+        </div>
+    </form>
+</div>
 
             <div class="config-section" id="notificaciones">
                 <h2 class="section-title">Notificaciones</h2>
@@ -187,6 +188,36 @@
                     </div>
                 </form>
             </div>
+            
+            <div class="config-section" id="accesibilidad">
+    <h2 class="section-title">Accesibilidad</h2>
+    <form method="POST" action="{{ url_for('configuracion.configuracion') }}">
+        <input type="hidden" name="seccion" value="accesibilidad">
+        <div class="card">
+            <h3 class="card-title">Preferencias de Accesibilidad</h3>
+
+            <div class="form-group">
+                <label for="cursor-size">Tamaño del cursor:</label>
+                <select name="cursor_size" id="cursor-size" class="form-control">
+                    <option value="default" {% if usuario.cursor_size == 'default' %}selected{% endif %}>Normal</option>
+                    <option value="large" {% if usuario.cursor_size == 'large' %}selected{% endif %}>Grande</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modo-lector">Modo lector de pantalla:</label>
+                <select name="modo_lector" id="modo-lector" class="form-control">
+                    <option value="off" {% if usuario.modo_lector == 'off' %}selected{% endif %}>Desactivado</option>
+                    <option value="on" {% if usuario.modo_lector == 'on' %}selected{% endif %}>Activado</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Guardar preferencias</button>
+            </div>
+        </div>
+    </form>
+</div>
         </div>
     </div>
 

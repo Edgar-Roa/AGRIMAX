@@ -161,3 +161,8 @@ button:hover {
     transform: scale(1.05); /* Efecto de agrandar */
 }
 
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}

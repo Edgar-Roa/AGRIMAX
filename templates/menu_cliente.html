@@ -14,8 +14,7 @@
     <script src="/static/js/frutas.js" defer></script>
 
 </head>
-<body>
-    <body>
+<body class="{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}">
     {% if not session.get('usuario_id') %}
  <script>
      window.location.href = "{{ url_for('login') }}";
