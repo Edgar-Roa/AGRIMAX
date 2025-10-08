@@ -10,8 +10,10 @@
     <script src="/static/js/frutas.js" defer></script>
     <script src="/static/js/boton_hamburguesaP.js" defer></script>
     <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/cursor.css">
+    <script src="/static/js/lector.js" defer></script>
 </head>
-<body class="{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}">
+<body class="{% if usuario %}{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}{% endif %}">
     {% if not session.get('usuario_id') %}
     <script>
         window.location.href = "{{ url_for('login') }}";

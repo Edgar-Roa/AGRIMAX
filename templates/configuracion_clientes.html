@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/cursor.css">
+    <script src="/static/js/lector.js" defer></script>
 </head>
 <body class="{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}">
     {% if not session.get('usuario_id') %}
@@ -25,6 +26,7 @@
             </button>
         </div>
     </header>
+
 
     <div id="sidebar" class="sidebar">
         <ul class="sidebar-menu">

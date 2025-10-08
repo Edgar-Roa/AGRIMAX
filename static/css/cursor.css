@@ -1,68 +1,48 @@
+/* === Cursor grande === */
 body.cursor-large {
-  cursor: url('/static/cursor-large.cur'), auto;
+  cursor: url('/static/extra large arrow.cur'), auto;
 }
 
+/* === Modo lector sin contraste === */
 body.modo-lector {
-  background-color: #1a1a1a;
-  color: #f5f5f5;
   font-size: 1.25em;
   line-height: 1.8;
   letter-spacing: 0.5px;
 }
 
-/* Botones y enlaces */
+/* === Botones y enlaces (sin borde ni fondo oscuro) === */
 body.modo-lector .btn,
 body.modo-lector a {
-  background-color: #f5f5f5;
-  color: #1a1a1a;
-  border: 2px solid #f5f5f5;
   font-weight: bold;
+  text-decoration: underline;
 }
 
-body.modo-lector .btn:hover,
-body.modo-lector a:hover {
-  background-color: #e0e0e0;
-  border-color: #e0e0e0;
-}
-
-/* Inputs y selects */
+/* === Inputs y selects (sin fondo oscuro) === */
 body.modo-lector input,
 body.modo-lector select,
 body.modo-lector textarea {
-  background-color: #2a2a2a;
-  color: #f5f5f5;
-  border: 1px solid #ccc;
   font-size: 1em;
   padding: 10px;
 }
 
-/* Tarjetas y contenedores */
+/* === Tarjetas y contenedores (sin fondo oscuro) === */
 body.modo-lector .card,
 body.modo-lector .config-content {
-  background-color: #262626;
-  color: #f5f5f5;
-  border: 1px solid #444;
+  border: none;
+  padding: 15px;
 }
 
-/* Menú lateral */
-body.modo-lector .config-sidebar {
-  background-color: #2a2a2a;
-  color: #f5f5f5;
-}
-
-body.modo-lector .config-menu li {
-  background-color: transparent;
-  color: #f5f5f5;
-}
-
+/* === Menú lateral (sin fondo oscuro) === */
+body.modo-lector .config-sidebar,
+body.modo-lector .config-menu li,
 body.modo-lector .config-menu li.active {
-  background-color: #8b4c12;
-  color: #fff;
+  background-color: white;
+  color: inherit;
 }
 
-/* Feedback */
+/* === Feedback y alertas (sin fondo oscuro) === */
 body.modo-lector .feedback {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #666;
+  background-color: white;
+  color: inherit;
+  border: none;
 }

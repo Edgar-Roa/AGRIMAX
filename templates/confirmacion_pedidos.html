@@ -14,6 +14,8 @@
     <script src="/static/js/forma_pago.js" defer></script>
     <script src="/static/js/confirmacion_pedidos.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/cursor.css">
+    <script src="/static/js/lector.js" defer></script>
 </head>
 <style>
     .mensaje-flotante {
@@ -28,7 +30,7 @@
     display: none;
 }
 </style>
-<body class="{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}">
+<body class="{% if usuario %}{{ 'cursor-large' if usuario.cursor_size == 'large' else '' }} {{ 'modo-lector' if usuario.modo_lector == 'on' else '' }}{% endif %}">
     {% if not session.get('usuario_id') %}
     <script>
         window.location.href = "{{ url_for('login') }}";

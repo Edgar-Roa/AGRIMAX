@@ -4,6 +4,7 @@ from flask_login import LoginManager, UserMixin
 import bcrypt
 from models import Usuario
 from extensions import mail, login_manager
+from flask import session
 
 app = Flask(__name__)
 
@@ -119,6 +120,25 @@ app.register_blueprint(legumbres_bp)
 app.register_blueprint(hortalizas_bp)
 app.register_blueprint(vaciar_carrito_bp)
 app.register_blueprint(actualizar_cantidad_bp)
+
+@app.context_processor
+def inject_usuario():
+    from bd import conectar_bd
+    usuario_id = session.get('usuario_id')
+    if usuario_id:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+        cursor.execute("SELECT cursor_size, modo_lector FROM perfiles WHERE usuario_id = %s", (usuario_id,))
+        prefs = cursor.fetchone()
+        cursor.close()
+        conexion.close()
+        return {
+            'usuario': {
+                'cursor_size': prefs[0] if prefs and prefs[0] else 'default',
+                'modo_lector': prefs[1] if prefs and prefs[1] else 'off'
+            }
+        }
+    return {'usuario': None}
 
 @app.after_request
 def add_no_cache_headers(response):
